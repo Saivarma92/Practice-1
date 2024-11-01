@@ -1,27 +1,42 @@
-package com.example.garage.servlet;
+package com.example.garage.model;
 
-import com.example.garage.model.Appointment;
-
-import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-@WebServlet("/appointment")
-public class AppointmentServlet extends HttpServlet {
-    private List<Appointment> appointments = new ArrayList<>();
+public class Appointment {
+    private String vehiclePlate;
+    private String mechanicName;
+    private Date appointmentDate;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String vehiclePlate = request.getParameter("vehiclePlate");
-        String mechanicName = request.getParameter("mechanicName");
-        Date appointmentDate = new Date(); // For simplicity
+    // Constructor
+    public Appointment(String vehiclePlate, String mechanicName, Date appointmentDate) {
+        this.vehiclePlate = vehiclePlate;
+        this.mechanicName = mechanicName;
+        this.appointmentDate = appointmentDate;
+    }
 
-        appointments.add(new Appointment(vehiclePlate, mechanicName, appointmentDate));
-        request.setAttribute("appointments", appointments);
-        request.getRequestDispatcher("viewAppointments.jsp").forward(request, response);
+    // Getters and setters
+    public String getVehiclePlate() {
+        return vehiclePlate;
+    }
+
+    public void setVehiclePlate(String vehiclePlate) {
+        this.vehiclePlate = vehiclePlate;
+    }
+
+    public String getMechanicName() {
+        return mechanicName;
+    }
+
+    public void setMechanicName(String mechanicName) {
+        this.mechanicName = mechanicName;
+    }
+
+    public Date getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public void setAppointmentDate(Date appointmentDate) {
+        this.appointmentDate = appointmentDate;
     }
 }
 
