@@ -1,13 +1,27 @@
-package com.example.garage.model;
+package com.example.garage.servlet;
 
+import com.example.garage.model.Appointment;
+
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class Appointment {
-    private int id;
-    private String vehiclePlate;
-    private String mechanicName;
-    private Date appointmentDate;
+@WebServlet("/appointment")
+public class AppointmentServlet extends HttpServlet {
+    private List<Appointment> appointments = new ArrayList<>();
 
-    // Constructors, getters, and setters
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String vehiclePlate = request.getParameter("vehiclePlate");
+        String mechanicName = request.getParameter("mechanicName");
+        Date appointmentDate = new Date(); // For simplicity
+
+        appointments.add(new Appointment(vehiclePlate, mechanicName, appointmentDate));
+        request.setAttribute("appointments", appointments);
+        request.getRequestDispatcher("viewAppointments.jsp").forward(request, response);
+    }
 }
 
